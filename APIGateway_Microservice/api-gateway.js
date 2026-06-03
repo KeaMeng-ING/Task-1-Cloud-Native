@@ -32,16 +32,19 @@ function authRole(role) {
   };
 }
 
+const STUDENT_SERVICE_URL = process.env.STUDENT_SERVICE_URL;
+const TEACHER_SERVICE_URL = process.env.TEACHER_SERVICE_URL;
+
 //REDIRECT TO THE STUDENT MICROSERVICE
 app.use("/student", authToken, authRole("student"), (req, res) => {
   console.log("INSIDE API GATEWAY STUDENT ROUTE");
-  proxy.web(req, res, { target: "http://localhost:5001" });
+  proxy.web(req, res, { target: STUDENT_SERVICE_URL, changeOrigin: true });
 });
 
 //REDIRECT TO THE TEACHER MICROSERVICE
 app.use("/teacher", authToken, authRole("teacher"), (req, res) => {
   console.log("INSIDE API GATEWAY TEACHER ROUTE");
-  proxy.web(req, res, { target: "http://localhost:5002" });
+  proxy.web(req, res, { target: TEACHER_SERVICE_URL, changeOrigin: true });
 });
 
 //REDIRECT TO THE LOGIN(Authentication) MICROSERVICE
