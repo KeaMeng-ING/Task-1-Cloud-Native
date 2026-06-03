@@ -1,9 +1,9 @@
 // STEP-1 : IMPORT MONGOOSE PACKAGE
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // Database Connection URL
-const uri =
-  "mongodb+srv://keameng9_db_user:Iwag9fQgQHVuT4X5@cluster0.3ojotkf.mongodb.net/cloudnative?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGO_URI;
 
 const clientOptions = {
   serverApi: { version: "1", strict: true, deprecationErrors: true },
